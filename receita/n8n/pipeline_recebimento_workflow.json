@@ -1,0 +1,430 @@
+{
+  "name": "Pipeline Comissões por Recebimento",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "n8n-trig-001",
+      "name": "🚀 Trigger Manual",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [240, 500]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ════════════════════════════════════════════════════════\n// ⚙️  PARÂMETROS — EDITE AQUI antes de executar\n// ════════════════════════════════════════════════════════\nconst mes = 10;   // Mês de apuração (1-12)\nconst ano = 2025; // Ano de apuração\n\n// Caminho ABSOLUTO do projeto no servidor onde o N8N está rodando\nconst project_dir = '/caminho/para/calculadora_comissoes';\n\n// Caminhos dos arquivos de entrada (relativos a project_dir)\nconst caminho_ac  = 'dados_entrada/analise-comercial.xlsx';\nconst caminho_cp  = 'dados_entrada/Classificação de Produtos.xlsx';\nconst caminho_af  = 'dados_entrada/analise-financeira.xlsx';\nconst caminho_pc  = 'dados_entrada/processo_pedido_compra.xlsx';\nconst caminho_dev = 'dados_entrada/devolucoes.xlsx';\n\nconst mm = String(mes).padStart(2, '0');\nreturn [{ json: {\n  mes, ano, project_dir,\n  caminho_ac, caminho_cp, caminho_af, caminho_pc, caminho_dev,\n  saida_dir: `saida/${mm}_${ano}`,\n  warnings_acumulados: [],\n  errors_acumulados: [],\n} }];"
+      },
+      "id": "n8n-node-001",
+      "name": "⚙️ 01 Parâmetros",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 500]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── Nó: Carregar Config ──────────────────────────────────────────────\n// Chama receita/n8n/prep_config.py para carregar config do Supabase\nconst { execSync } = require('child_process');\nconst fs = require('fs');\nconst os = require('os');\nconst path = require('path');\nconst state = $input.all()[0].json;\n\nconst tmpIn  = path.join(os.tmpdir(), 'n8n_rec_config_in.json');\nconst tmpOut = path.join(os.tmpdir(), 'n8n_rec_config_out.json');\n\nconst payload = {\n  project_dir: state.project_dir,\n  mes: state.mes,\n  ano: state.ano,\n};\nfs.writeFileSync(tmpIn, JSON.stringify(payload));\n\ntry {\n  execSync(\n    `python -m receita.n8n.prep_config < \"${tmpIn}\" > \"${tmpOut}\"`,\n    { cwd: state.project_dir, encoding: 'utf8', shell: true }\n  );\n  const result = JSON.parse(fs.readFileSync(tmpOut, 'utf8'));\n  if (result.status !== 'ok') {\n    throw new Error('prep_config falhou: ' + JSON.stringify(result.errors));\n  }\n  const warnings = [...(state.warnings_acumulados || []), ...(result.warnings || [])];\n  return [{ json: { ...state, ...result, warnings_acumulados: warnings } }];\n} catch (e) {\n  throw new Error('[Config] ' + (e.message || String(e)));\n}"
+      },
+      "id": "n8n-node-002",
+      "name": "🔧 02 Carregar Config",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [720, 500]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── Nó: Preparar Dados ───────────────────────────────────────────────\n// Chama receita/n8n/prep_pipeline.py:\n//   loader → atribuicao → realizados → serializa DataFrames\n// ATENÇÃO: este nó pode demorar 10-60s dependendo do tamanho dos dados\nconst { execSync } = require('child_process');\nconst fs = require('fs');\nconst os = require('os');\nconst path = require('path');\nconst state = $input.all()[0].json;\n\nconst tmpIn  = path.join(os.tmpdir(), 'n8n_rec_prep_in.json');\nconst tmpOut = path.join(os.tmpdir(), 'n8n_rec_prep_out.json');\n\nconst payload = {\n  project_dir: state.project_dir,\n  mes: state.mes,\n  ano: state.ano,\n  caminho_ac:  state.caminho_ac,\n  caminho_cp:  state.caminho_cp,\n  caminho_af:  state.caminho_af,\n  caminho_pc:  state.caminho_pc,\n  caminho_dev: state.caminho_dev,\n};\nfs.writeFileSync(tmpIn, JSON.stringify(payload));\n\ntry {\n  execSync(\n    `python -m receita.n8n.prep_pipeline < \"${tmpIn}\" > \"${tmpOut}\"`,\n    { cwd: state.project_dir, encoding: 'utf8', shell: true, timeout: 180000 }\n  );\n  const result = JSON.parse(fs.readFileSync(tmpOut, 'utf8'));\n  if (result.status !== 'ok') {\n    throw new Error('prep_pipeline falhou: ' + JSON.stringify(result.errors));\n  }\n  const warnings = [...(state.warnings_acumulados || []), ...(result.warnings || [])];\n  return [{ json: { ...state, ...result, warnings_acumulados: warnings } }];\n} catch (e) {\n  throw new Error('[Prep Dados] ' + (e.message || String(e)));\n}"
+      },
+      "id": "n8n-node-003",
+      "name": "📂 03 Preparar Dados",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [960, 500]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── Etapa 03: Atribuir GLs ───────────────────────────────────────────\n// Determina quais Gerentes de Linha são elegíveis para cada linha\nconst { execSync } = require('child_process');\nconst fs = require('fs');\nconst os = require('os');\nconst path = require('path');\nconst state = $input.all()[0].json;\n\nconst tmpIn  = path.join(os.tmpdir(), 'n8n_rec_e03_in.json');\nconst tmpOut = path.join(os.tmpdir(), 'n8n_rec_e03_out.json');\n\nconst payload = {\n  config_comissao: state.config_comissao,\n  colaboradores:   state.colaboradores,\n  cargos:          state.cargos,\n};\nfs.writeFileSync(tmpIn, JSON.stringify(payload));\n\nlet result;\ntry {\n  execSync(\n    `python -m receita.pipeline.etapas.etapa_03_atribuir_gls < \"${tmpIn}\" > \"${tmpOut}\"`,\n    { cwd: state.project_dir, encoding: 'utf8', shell: true }\n  );\n  result = JSON.parse(fs.readFileSync(tmpOut, 'utf8'));\n} catch (e) {\n  result = { status: 'error', errors: [String(e.message)], warnings: [] };\n}\n\nconst warnings = [...(state.warnings_acumulados || []), ...(result.warnings || [])];\nconst errors   = [...(state.errors_acumulados   || []), ...(result.errors   || [])];\nreturn [{ json: { ...state, ...result, warnings_acumulados: warnings, errors_acumulados: errors } }];"
+      },
+      "id": "n8n-node-004",
+      "name": "🔀 04 Atribuir GLs (E03)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1200, 500]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [{
+            "id": "chk-e03-cond",
+            "leftValue": "={{ $json.status }}",
+            "rightValue": "ok",
+            "operator": { "type": "string", "operation": "equals" }
+          }],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "n8n-chk-004",
+      "name": "✅ Verificar E03",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1440, 500]
+    },
+    {
+      "parameters": {
+        "errorMessage": "={{ '🛑 Etapa 03 (Atribuir GLs) falhou:\\n' + JSON.stringify($json.errors_acumulados, null, 2) }}"
+      },
+      "id": "n8n-stop-004",
+      "name": "🛑 Parar — Erro E03",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [1440, 720]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── Etapa 02: Validar Conflitos GL ───────────────────────────────────\n// Detecta processos com múltiplos GLs em linhas diferentes\n// NÃO crítico: conflitos viram warnings, pipeline continua\nconst { execSync } = require('child_process');\nconst fs = require('fs');\nconst os = require('os');\nconst path = require('path');\nconst state = $input.all()[0].json;\n\nconst tmpIn  = path.join(os.tmpdir(), 'n8n_rec_e02_in.json');\nconst tmpOut = path.join(os.tmpdir(), 'n8n_rec_e02_out.json');\n\nconst payload = {\n  df_ac_json:       state.df_ac_full_json,\n  atribuicao_result: state.atribuicao_result,\n  saida_dir:        state.saida_dir,\n  mes:              state.mes,\n  ano:              state.ano,\n};\nfs.writeFileSync(tmpIn, JSON.stringify(payload));\n\nlet result;\ntry {\n  execSync(\n    `python -m receita.pipeline.etapas.etapa_02_validar_conflitos < \"${tmpIn}\" > \"${tmpOut}\"`,\n    { cwd: state.project_dir, encoding: 'utf8', shell: true }\n  );\n  result = JSON.parse(fs.readFileSync(tmpOut, 'utf8'));\n} catch (e) {\n  // Falha não crítica — pipeline continua\n  result = { status: 'warning', conflitos: [], processos_bloqueados: [], warnings: ['E02 falhou: ' + String(e.message)], errors: [] };\n}\n\nconst warnings = [...(state.warnings_acumulados || []), ...(result.warnings || [])];\nif ((result.conflitos || []).length > 0) {\n  warnings.push(`⚠️ ${result.conflitos.length} conflito(s) GL detectado(s) — ver alertas_${String(state.mes).padStart(2,'0')}_${state.ano}.txt`);\n}\nreturn [{ json: { ...state, ...result, warnings_acumulados: warnings } }];"
+      },
+      "id": "n8n-node-005",
+      "name": "⚠️ 05 Validar Conflitos (E02)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1680, 500]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── Etapa 04: Mapear Documentos ──────────────────────────────────────\n// Vincula documentos da AF a processos da AC via NF\nconst { execSync } = require('child_process');\nconst fs = require('fs');\nconst os = require('os');\nconst path = require('path');\nconst state = $input.all()[0].json;\n\nconst tmpIn  = path.join(os.tmpdir(), 'n8n_rec_e04_in.json');\nconst tmpOut = path.join(os.tmpdir(), 'n8n_rec_e04_out.json');\n\nconst payload = {\n  df_af_json:      state.df_af_json,\n  df_ac_full_json: state.df_ac_full_json,\n};\nfs.writeFileSync(tmpIn, JSON.stringify(payload));\n\nlet result;\ntry {\n  execSync(\n    `python -m receita.pipeline.etapas.etapa_04_mapear_documentos < \"${tmpIn}\" > \"${tmpOut}\"`,\n    { cwd: state.project_dir, encoding: 'utf8', shell: true }\n  );\n  result = JSON.parse(fs.readFileSync(tmpOut, 'utf8'));\n} catch (e) {\n  result = { status: 'error', errors: [String(e.message)], warnings: [] };\n}\n\nconst warnings = [...(state.warnings_acumulados || []), ...(result.warnings || [])];\nconst errors   = [...(state.errors_acumulados   || []), ...(result.errors   || [])];\nreturn [{ json: { ...state, ...result, warnings_acumulados: warnings, errors_acumulados: errors } }];"
+      },
+      "id": "n8n-node-006",
+      "name": "🔗 06 Mapear Documentos (E04)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1920, 500]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [{
+            "id": "chk-e04-cond",
+            "leftValue": "={{ $json.status }}",
+            "rightValue": "ok",
+            "operator": { "type": "string", "operation": "equals" }
+          }],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "n8n-chk-006",
+      "name": "✅ Verificar E04",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [2160, 500]
+    },
+    {
+      "parameters": {
+        "errorMessage": "={{ '🛑 Etapa 04 (Mapear Documentos) falhou:\\n' + JSON.stringify($json.errors_acumulados, null, 2) }}"
+      },
+      "id": "n8n-stop-006",
+      "name": "🛑 Parar — Erro E04",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [2160, 720]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── Etapa 05: Calcular TCMP ──────────────────────────────────────────\n// Taxa de Comissão Média Ponderada por processo\nconst { execSync } = require('child_process');\nconst fs = require('fs');\nconst os = require('os');\nconst path = require('path');\nconst state = $input.all()[0].json;\n\nconst tmpIn  = path.join(os.tmpdir(), 'n8n_rec_e05_in.json');\nconst tmpOut = path.join(os.tmpdir(), 'n8n_rec_e05_out.json');\n\nconst payload = {\n  df_ac_full_json:  state.df_ac_full_json,\n  atribuicao_result: state.atribuicao_result,\n};\nfs.writeFileSync(tmpIn, JSON.stringify(payload));\n\nlet result;\ntry {\n  execSync(\n    `python -m receita.pipeline.etapas.etapa_05_calcular_tcmp < \"${tmpIn}\" > \"${tmpOut}\"`,\n    { cwd: state.project_dir, encoding: 'utf8', shell: true }\n  );\n  result = JSON.parse(fs.readFileSync(tmpOut, 'utf8'));\n} catch (e) {\n  result = { status: 'error', errors: [String(e.message)], warnings: [] };\n}\n\nconst warnings = [...(state.warnings_acumulados || []), ...(result.warnings || [])];\nconst errors   = [...(state.errors_acumulados   || []), ...(result.errors   || [])];\nreturn [{ json: { ...state, ...result, warnings_acumulados: warnings, errors_acumulados: errors } }];"
+      },
+      "id": "n8n-node-007",
+      "name": "📐 07 Calcular TCMP (E05)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2400, 500]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [{
+            "id": "chk-e05-cond",
+            "leftValue": "={{ $json.status }}",
+            "rightValue": "ok",
+            "operator": { "type": "string", "operation": "equals" }
+          }],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "n8n-chk-007",
+      "name": "✅ Verificar E05",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [2640, 500]
+    },
+    {
+      "parameters": {
+        "errorMessage": "={{ '🛑 Etapa 05 (TCMP) falhou:\\n' + JSON.stringify($json.errors_acumulados, null, 2) }}"
+      },
+      "id": "n8n-stop-007",
+      "name": "🛑 Parar — Erro E05",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [2640, 720]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── Etapa 06: Calcular FCMP ──────────────────────────────────────────\n// Fator de Comissão Médio Ponderado por processo por GL\n// realizados_result é reconstruído como RealizadosResult em Python\nconst { execSync } = require('child_process');\nconst fs = require('fs');\nconst os = require('os');\nconst path = require('path');\nconst state = $input.all()[0].json;\n\nconst tmpIn  = path.join(os.tmpdir(), 'n8n_rec_e06_in.json');\nconst tmpOut = path.join(os.tmpdir(), 'n8n_rec_e06_out.json');\n\nconst payload = {\n  df_ac_full_json:   state.df_ac_full_json,\n  realizados_result: state.realizados_result,\n  atribuicao_result: state.atribuicao_result,\n  pesos_metas:       state.pesos_metas,\n  fc_escada:         state.fc_escada,\n  params:            state.params,\n};\nfs.writeFileSync(tmpIn, JSON.stringify(payload));\n\nlet result;\ntry {\n  execSync(\n    `python -m receita.pipeline.etapas.etapa_06_calcular_fcmp < \"${tmpIn}\" > \"${tmpOut}\"`,\n    { cwd: state.project_dir, encoding: 'utf8', shell: true, timeout: 120000 }\n  );\n  result = JSON.parse(fs.readFileSync(tmpOut, 'utf8'));\n} catch (e) {\n  result = { status: 'error', errors: [String(e.message)], warnings: [] };\n}\n\nconst warnings = [...(state.warnings_acumulados || []), ...(result.warnings || [])];\nconst errors   = [...(state.errors_acumulados   || []), ...(result.errors   || [])];\nreturn [{ json: { ...state, ...result, warnings_acumulados: warnings, errors_acumulados: errors } }];"
+      },
+      "id": "n8n-node-008",
+      "name": "📊 08 Calcular FCMP (E06)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2880, 500]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [{
+            "id": "chk-e06-cond",
+            "leftValue": "={{ $json.status }}",
+            "rightValue": "ok",
+            "operator": { "type": "string", "operation": "equals" }
+          }],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "n8n-chk-008",
+      "name": "✅ Verificar E06",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [3120, 500]
+    },
+    {
+      "parameters": {
+        "errorMessage": "={{ '🛑 Etapa 06 (FCMP) falhou:\\n' + JSON.stringify($json.errors_acumulados, null, 2) }}"
+      },
+      "id": "n8n-stop-008",
+      "name": "🛑 Parar — Erro E06",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [3120, 720]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── Etapa 07: Calcular Comissão ──────────────────────────────────────\n// Comissão final por documento por GL\nconst { execSync } = require('child_process');\nconst fs = require('fs');\nconst os = require('os');\nconst path = require('path');\nconst state = $input.all()[0].json;\n\nconst tmpIn  = path.join(os.tmpdir(), 'n8n_rec_e07_in.json');\nconst tmpOut = path.join(os.tmpdir(), 'n8n_rec_e07_out.json');\n\nconst payload = {\n  mapeamento_result:  state.mapeamento_result,\n  atribuicao_result:  state.atribuicao_result,\n  tcmp_result:        state.tcmp_result,\n  fcmp_por_gl:        state.fcmp_por_gl,\n};\nfs.writeFileSync(tmpIn, JSON.stringify(payload));\n\nlet result;\ntry {\n  execSync(\n    `python -m receita.pipeline.etapas.etapa_07_calcular_comissao < \"${tmpIn}\" > \"${tmpOut}\"`,\n    { cwd: state.project_dir, encoding: 'utf8', shell: true }\n  );\n  result = JSON.parse(fs.readFileSync(tmpOut, 'utf8'));\n} catch (e) {\n  result = { status: 'error', errors: [String(e.message)], warnings: [] };\n}\n\nconst warnings = [...(state.warnings_acumulados || []), ...(result.warnings || [])];\nconst errors   = [...(state.errors_acumulados   || []), ...(result.errors   || [])];\nreturn [{ json: { ...state, ...result, warnings_acumulados: warnings, errors_acumulados: errors } }];"
+      },
+      "id": "n8n-node-009",
+      "name": "💰 09 Calcular Comissão (E07)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [3360, 500]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [{
+            "id": "chk-e07-cond",
+            "leftValue": "={{ $json.status }}",
+            "rightValue": "ok",
+            "operator": { "type": "string", "operation": "equals" }
+          }],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "n8n-chk-009",
+      "name": "✅ Verificar E07",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [3600, 500]
+    },
+    {
+      "parameters": {
+        "errorMessage": "={{ '🛑 Etapa 07 (Comissão) falhou:\\n' + JSON.stringify($json.errors_acumulados, null, 2) }}"
+      },
+      "id": "n8n-stop-009",
+      "name": "🛑 Parar — Erro E07",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [3600, 720]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── Etapa 08: Rastrear Processo Pai ──────────────────────────────────\n// Vincula processos filho ao Processo Pai via tabela PC\n// NÃO crítico — falha vira warning\nconst { execSync } = require('child_process');\nconst fs = require('fs');\nconst os = require('os');\nconst path = require('path');\nconst state = $input.all()[0].json;\n\nconst tmpIn  = path.join(os.tmpdir(), 'n8n_rec_e08_in.json');\nconst tmpOut = path.join(os.tmpdir(), 'n8n_rec_e08_out.json');\n\nconst payload = {\n  comissao_result:   state.comissao_result,\n  tabela_pc_json:    state.tabela_pc_json,\n  df_ac_full_json:   state.df_ac_full_json,\n  mes:               state.mes,\n  ano:               state.ano,\n};\nfs.writeFileSync(tmpIn, JSON.stringify(payload));\n\nlet result;\ntry {\n  execSync(\n    `python -m receita.pipeline.etapas.etapa_08_rastrear_processo_pai < \"${tmpIn}\" > \"${tmpOut}\"`,\n    { cwd: state.project_dir, encoding: 'utf8', shell: true }\n  );\n  result = JSON.parse(fs.readFileSync(tmpOut, 'utf8'));\n} catch (e) {\n  result = { status: 'warning', status_por_processo_pai: {}, processo_para_pai: {}, warnings: ['E08 falhou: ' + String(e.message)], errors: [] };\n}\n\nconst warnings = [...(state.warnings_acumulados || []), ...(result.warnings || [])];\nreturn [{ json: { ...state, ...result, warnings_acumulados: warnings } }];"
+      },
+      "id": "n8n-node-010",
+      "name": "🔍 10 Rastrear Proc. Pai (E08)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [3840, 500]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── Etapa 09: Verificar Reconciliação ────────────────────────────────\n// Determina quais processos estão aptos para reconciliação final\n// NÃO crítico\nconst { execSync } = require('child_process');\nconst fs = require('fs');\nconst os = require('os');\nconst path = require('path');\nconst state = $input.all()[0].json;\n\nconst tmpIn  = path.join(os.tmpdir(), 'n8n_rec_e09_in.json');\nconst tmpOut = path.join(os.tmpdir(), 'n8n_rec_e09_out.json');\n\nconst payload = {\n  status_por_processo_pai: state.status_por_processo_pai || {},\n};\nfs.writeFileSync(tmpIn, JSON.stringify(payload));\n\nlet result;\ntry {\n  execSync(\n    `python -m receita.pipeline.etapas.etapa_09_verificar_reconciliacao < \"${tmpIn}\" > \"${tmpOut}\"`,\n    { cwd: state.project_dir, encoding: 'utf8', shell: true }\n  );\n  result = JSON.parse(fs.readFileSync(tmpOut, 'utf8'));\n} catch (e) {\n  result = { status: 'warning', processos_aptos: [], warnings: ['E09 falhou: ' + String(e.message)], errors: [] };\n}\n\nconst warnings = [...(state.warnings_acumulados || []), ...(result.warnings || [])];\nreturn [{ json: { ...state, ...result, warnings_acumulados: warnings } }];"
+      },
+      "id": "n8n-node-011",
+      "name": "✔️ 11 Verificar Reconciliação (E09)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [4080, 500]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── Etapa 10: Calcular Reconciliação ─────────────────────────────────\n// Ajuste de comissão para processos com Processo Pai 100% faturado e pago\n// NÃO crítico\nconst { execSync } = require('child_process');\nconst fs = require('fs');\nconst os = require('os');\nconst path = require('path');\nconst state = $input.all()[0].json;\n\nconst tmpIn  = path.join(os.tmpdir(), 'n8n_rec_e10_in.json');\nconst tmpOut = path.join(os.tmpdir(), 'n8n_rec_e10_out.json');\n\nconst payload = {\n  comissao_result: state.comissao_result,\n  fcmp_por_gl:     state.fcmp_por_gl,\n  processos_aptos: state.processos_aptos || [],\n};\nfs.writeFileSync(tmpIn, JSON.stringify(payload));\n\nlet result;\ntry {\n  execSync(\n    `python -m receita.pipeline.etapas.etapa_10_calcular_reconciliacao < \"${tmpIn}\" > \"${tmpOut}\"`,\n    { cwd: state.project_dir, encoding: 'utf8', shell: true }\n  );\n  result = JSON.parse(fs.readFileSync(tmpOut, 'utf8'));\n} catch (e) {\n  result = { status: 'warning', reconciliacao_result: { itens: [], total_por_gl: {}, warnings: [] }, warnings: ['E10 falhou: ' + String(e.message)], errors: [] };\n}\n\nconst warnings = [...(state.warnings_acumulados || []), ...(result.warnings || [])];\nreturn [{ json: { ...state, ...result, warnings_acumulados: warnings } }];"
+      },
+      "id": "n8n-node-012",
+      "name": "⚖️ 12 Calcular Reconciliação (E10)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [4320, 500]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── Etapa 11: Calcular Estornos ───────────────────────────────────────\n// Estornos proporcionais por devoluções\n// NÃO crítico\nconst { execSync } = require('child_process');\nconst fs = require('fs');\nconst os = require('os');\nconst path = require('path');\nconst state = $input.all()[0].json;\n\nconst tmpIn  = path.join(os.tmpdir(), 'n8n_rec_e11_in.json');\nconst tmpOut = path.join(os.tmpdir(), 'n8n_rec_e11_out.json');\n\nconst payload = {\n  df_devolucoes_json: state.df_devolucoes_json || [],\n  df_ac_full_json:    state.df_ac_full_json,\n  comissao_result:    state.comissao_result,\n};\nfs.writeFileSync(tmpIn, JSON.stringify(payload));\n\nlet result;\ntry {\n  execSync(\n    `python -m receita.pipeline.etapas.etapa_11_calcular_estornos < \"${tmpIn}\" > \"${tmpOut}\"`,\n    { cwd: state.project_dir, encoding: 'utf8', shell: true }\n  );\n  result = JSON.parse(fs.readFileSync(tmpOut, 'utf8'));\n} catch (e) {\n  result = { status: 'warning', estornos_result: { itens: [], total_por_gl: {}, warnings: [] }, warnings: ['E11 falhou: ' + String(e.message)], errors: [] };\n}\n\nconst warnings = [...(state.warnings_acumulados || []), ...(result.warnings || [])];\nreturn [{ json: { ...state, ...result, warnings_acumulados: warnings } }];"
+      },
+      "id": "n8n-node-013",
+      "name": "🔄 13 Calcular Estornos (E11)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [4560, 500]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── Etapa 12: Salvar Histórico Supabase ──────────────────────────────\n// Persiste TCMP/FCMP parciais por processo no banco histórico\n// NÃO crítico — falha de Supabase não interrompe geração de relatórios\nconst { execSync } = require('child_process');\nconst fs = require('fs');\nconst os = require('os');\nconst path = require('path');\nconst state = $input.all()[0].json;\n\nconst tmpIn  = path.join(os.tmpdir(), 'n8n_rec_e12_in.json');\nconst tmpOut = path.join(os.tmpdir(), 'n8n_rec_e12_out.json');\n\nconst payload = {\n  tcmp_result:             state.tcmp_result,\n  fcmp_por_gl:             state.fcmp_por_gl,\n  status_por_processo_pai: state.status_por_processo_pai || {},\n  tabela_pc_json:          state.tabela_pc_json || [],\n  mes:                     state.mes,\n  ano:                     state.ano,\n};\nfs.writeFileSync(tmpIn, JSON.stringify(payload));\n\nlet result;\ntry {\n  execSync(\n    `python -m receita.pipeline.etapas.etapa_12_salvar_historico < \"${tmpIn}\" > \"${tmpOut}\"`,\n    { cwd: state.project_dir, encoding: 'utf8', shell: true, timeout: 60000 }\n  );\n  result = JSON.parse(fs.readFileSync(tmpOut, 'utf8'));\n} catch (e) {\n  result = { status: 'warning', registros_salvos: 0, erros_supabase: [String(e.message)], warnings: ['E12 Supabase falhou: ' + String(e.message)], errors: [] };\n}\n\nconst warnings = [...(state.warnings_acumulados || []), ...(result.warnings || [])];\nreturn [{ json: { ...state, ...result, warnings_acumulados: warnings } }];"
+      },
+      "id": "n8n-node-014",
+      "name": "💾 14 Salvar Histórico (E12)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [4800, 500]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── Etapa 13: Exportar Markdown ──────────────────────────────────────\n// Gera recebimento_<GL>_MM_AAAA.md para cada Gerente de Linha\n// NÃO crítico\nconst { execSync } = require('child_process');\nconst fs = require('fs');\nconst os = require('os');\nconst path = require('path');\nconst state = $input.all()[0].json;\n\nconst tmpIn  = path.join(os.tmpdir(), 'n8n_rec_e13_in.json');\nconst tmpOut = path.join(os.tmpdir(), 'n8n_rec_e13_out.json');\n\nconst payload = {\n  comissao_result:     state.comissao_result,\n  reconciliacao_result: state.reconciliacao_result || { itens: [], total_por_gl: {}, warnings: [] },\n  estornos_result:     state.estornos_result       || { itens: [], total_por_gl: {}, warnings: [] },\n  tcmp_result:         state.tcmp_result,\n  fcmp_por_gl:         state.fcmp_por_gl,\n  saida_dir:           state.saida_dir,\n  mes:                 state.mes,\n  ano:                 state.ano,\n};\nfs.writeFileSync(tmpIn, JSON.stringify(payload));\n\nlet result;\ntry {\n  execSync(\n    `python -m receita.pipeline.etapas.etapa_13_exportar_md < \"${tmpIn}\" > \"${tmpOut}\"`,\n    { cwd: state.project_dir, encoding: 'utf8', shell: true, timeout: 60000 }\n  );\n  result = JSON.parse(fs.readFileSync(tmpOut, 'utf8'));\n} catch (e) {\n  result = { status: 'warning', arquivos_gerados: [], warnings: ['E13 MD falhou: ' + String(e.message)], errors: [] };\n}\n\nconst warnings = [...(state.warnings_acumulados || []), ...(result.warnings || [])];\nreturn [{ json: { ...state, arquivos_md: result.arquivos_gerados || [], warnings_acumulados: warnings } }];"
+      },
+      "id": "n8n-node-015",
+      "name": "📝 15 Exportar Markdown (E13)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [5040, 500]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── Etapa 14: Exportar Excel ─────────────────────────────────────────\n// Gera recebimento_<GL>_MM_AAAA.xlsx para cada Gerente de Linha\n// NÃO crítico\nconst { execSync } = require('child_process');\nconst fs = require('fs');\nconst os = require('os');\nconst path = require('path');\nconst state = $input.all()[0].json;\n\nconst tmpIn  = path.join(os.tmpdir(), 'n8n_rec_e14_in.json');\nconst tmpOut = path.join(os.tmpdir(), 'n8n_rec_e14_out.json');\n\nconst payload = {\n  comissao_result:     state.comissao_result,\n  reconciliacao_result: state.reconciliacao_result || { itens: [], total_por_gl: {}, warnings: [] },\n  estornos_result:     state.estornos_result       || { itens: [], total_por_gl: {}, warnings: [] },\n  tcmp_result:         state.tcmp_result,\n  fcmp_por_gl:         state.fcmp_por_gl,\n  saida_dir:           state.saida_dir,\n  mes:                 state.mes,\n  ano:                 state.ano,\n};\nfs.writeFileSync(tmpIn, JSON.stringify(payload));\n\nlet result;\ntry {\n  execSync(\n    `python -m receita.pipeline.etapas.etapa_14_exportar_excel < \"${tmpIn}\" > \"${tmpOut}\"`,\n    { cwd: state.project_dir, encoding: 'utf8', shell: true, timeout: 60000 }\n  );\n  result = JSON.parse(fs.readFileSync(tmpOut, 'utf8'));\n} catch (e) {\n  result = { status: 'warning', arquivos_gerados: [], warnings: ['E14 Excel falhou: ' + String(e.message)], errors: [] };\n}\n\nconst warnings = [...(state.warnings_acumulados || []), ...(result.warnings || [])];\nreturn [{ json: { ...state, arquivos_excel: result.arquivos_gerados || [], warnings_acumulados: warnings } }];"
+      },
+      "id": "n8n-node-016",
+      "name": "📊 16 Exportar Excel (E14)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [5280, 500]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── Resumo Final ─────────────────────────────────────────────────────\nconst state = $input.all()[0].json;\n\nconst comissao_result = state.comissao_result || { itens: [], total_por_gl: {} };\nconst total_comissao  = Object.values(comissao_result.total_por_gl || {}).reduce((a, b) => a + b, 0);\nconst num_docs        = (comissao_result.itens || []).length;\nconst num_gls         = Object.keys(comissao_result.total_por_gl || {}).length;\n\nconst reconciliacao_result = state.reconciliacao_result || { total_por_gl: {} };\nconst total_reconciliacao  = Object.values(reconciliacao_result.total_por_gl || {}).reduce((a, b) => a + b, 0);\n\nconst estornos_result = state.estornos_result || { total_por_gl: {} };\nconst total_estornos  = Object.values(estornos_result.total_por_gl || {}).reduce((a, b) => a + b, 0);\n\nconst resumo = {\n  pipeline: 'Comissões por Recebimento',\n  mes_ano: `${String(state.mes).padStart(2,'0')}/${state.ano}`,\n  status: 'concluido',\n  resultados: {\n    total_comissao_bruta:  Number(total_comissao.toFixed(2)),\n    total_reconciliacao:   Number(total_reconciliacao.toFixed(2)),\n    total_estornos:        Number(total_estornos.toFixed(2)),\n    total_liquido:         Number((total_comissao + total_reconciliacao + total_estornos).toFixed(2)),\n    num_documentos:        num_docs,\n    num_gls:               num_gls,\n    por_gl:                comissao_result.total_por_gl || {},\n  },\n  arquivos_gerados: {\n    markdown: state.arquivos_md    || [],\n    excel:    state.arquivos_excel || [],\n    alertas:  state.arquivo_alerta ? [state.arquivo_alerta] : [],\n  },\n  warnings: state.warnings_acumulados || [],\n  errors:   state.errors_acumulados   || [],\n};\n\nconsole.log('\\n' + '='.repeat(60));\nconsole.log(`  Pipeline Recebimento — ${resumo.mes_ano}`);\nconsole.log('='.repeat(60));\nconsole.log(`  Total comissão bruta:  R$ ${resumo.resultados.total_comissao_bruta.toLocaleString('pt-BR', {minimumFractionDigits:2})}`);\nconsole.log(`  Reconciliação:         R$ ${resumo.resultados.total_reconciliacao.toLocaleString('pt-BR', {minimumFractionDigits:2})}`);\nconsole.log(`  Estornos:              R$ ${resumo.resultados.total_estornos.toLocaleString('pt-BR', {minimumFractionDigits:2})}`);\nconsole.log(`  Total líquido:         R$ ${resumo.resultados.total_liquido.toLocaleString('pt-BR', {minimumFractionDigits:2})}`);\nconsole.log(`  Documentos processados: ${num_docs} | GLs: ${num_gls}`);\nconsole.log(`  Arquivos MD:   ${(state.arquivos_md||[]).length}`);\nconsole.log(`  Arquivos XLSX: ${(state.arquivos_excel||[]).length}`);\nif ((resumo.warnings).length > 0) {\n  console.log(`  ⚠️  ${resumo.warnings.length} aviso(s) — ver campo 'warnings' na saída`);\n}\n\nreturn [{ json: resumo }];"
+      },
+      "id": "n8n-node-017",
+      "name": "🏁 17 Resumo Final",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [5520, 500]
+    }
+  ],
+  "connections": {
+    "🚀 Trigger Manual": {
+      "main": [[{ "node": "⚙️ 01 Parâmetros", "type": "main", "index": 0 }]]
+    },
+    "⚙️ 01 Parâmetros": {
+      "main": [[{ "node": "🔧 02 Carregar Config", "type": "main", "index": 0 }]]
+    },
+    "🔧 02 Carregar Config": {
+      "main": [[{ "node": "📂 03 Preparar Dados", "type": "main", "index": 0 }]]
+    },
+    "📂 03 Preparar Dados": {
+      "main": [[{ "node": "🔀 04 Atribuir GLs (E03)", "type": "main", "index": 0 }]]
+    },
+    "🔀 04 Atribuir GLs (E03)": {
+      "main": [[{ "node": "✅ Verificar E03", "type": "main", "index": 0 }]]
+    },
+    "✅ Verificar E03": {
+      "main": [
+        [{ "node": "⚠️ 05 Validar Conflitos (E02)", "type": "main", "index": 0 }],
+        [{ "node": "🛑 Parar — Erro E03", "type": "main", "index": 0 }]
+      ]
+    },
+    "⚠️ 05 Validar Conflitos (E02)": {
+      "main": [[{ "node": "🔗 06 Mapear Documentos (E04)", "type": "main", "index": 0 }]]
+    },
+    "🔗 06 Mapear Documentos (E04)": {
+      "main": [[{ "node": "✅ Verificar E04", "type": "main", "index": 0 }]]
+    },
+    "✅ Verificar E04": {
+      "main": [
+        [{ "node": "📐 07 Calcular TCMP (E05)", "type": "main", "index": 0 }],
+        [{ "node": "🛑 Parar — Erro E04", "type": "main", "index": 0 }]
+      ]
+    },
+    "📐 07 Calcular TCMP (E05)": {
+      "main": [[{ "node": "✅ Verificar E05", "type": "main", "index": 0 }]]
+    },
+    "✅ Verificar E05": {
+      "main": [
+        [{ "node": "📊 08 Calcular FCMP (E06)", "type": "main", "index": 0 }],
+        [{ "node": "🛑 Parar — Erro E05", "type": "main", "index": 0 }]
+      ]
+    },
+    "📊 08 Calcular FCMP (E06)": {
+      "main": [[{ "node": "✅ Verificar E06", "type": "main", "index": 0 }]]
+    },
+    "✅ Verificar E06": {
+      "main": [
+        [{ "node": "💰 09 Calcular Comissão (E07)", "type": "main", "index": 0 }],
+        [{ "node": "🛑 Parar — Erro E06", "type": "main", "index": 0 }]
+      ]
+    },
+    "💰 09 Calcular Comissão (E07)": {
+      "main": [[{ "node": "✅ Verificar E07", "type": "main", "index": 0 }]]
+    },
+    "✅ Verificar E07": {
+      "main": [
+        [{ "node": "🔍 10 Rastrear Proc. Pai (E08)", "type": "main", "index": 0 }],
+        [{ "node": "🛑 Parar — Erro E07", "type": "main", "index": 0 }]
+      ]
+    },
+    "🔍 10 Rastrear Proc. Pai (E08)": {
+      "main": [[{ "node": "✔️ 11 Verificar Reconciliação (E09)", "type": "main", "index": 0 }]]
+    },
+    "✔️ 11 Verificar Reconciliação (E09)": {
+      "main": [[{ "node": "⚖️ 12 Calcular Reconciliação (E10)", "type": "main", "index": 0 }]]
+    },
+    "⚖️ 12 Calcular Reconciliação (E10)": {
+      "main": [[{ "node": "🔄 13 Calcular Estornos (E11)", "type": "main", "index": 0 }]]
+    },
+    "🔄 13 Calcular Estornos (E11)": {
+      "main": [[{ "node": "💾 14 Salvar Histórico (E12)", "type": "main", "index": 0 }]]
+    },
+    "💾 14 Salvar Histórico (E12)": {
+      "main": [[{ "node": "📝 15 Exportar Markdown (E13)", "type": "main", "index": 0 }]]
+    },
+    "📝 15 Exportar Markdown (E13)": {
+      "main": [[{ "node": "📊 16 Exportar Excel (E14)", "type": "main", "index": 0 }]]
+    },
+    "📊 16 Exportar Excel (E14)": {
+      "main": [[{ "node": "🏁 17 Resumo Final", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "receita-pipeline-v1",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "calculadora-comissoes-clean-env"
+  },
+  "id": "pipeline-recebimento-clean-env",
+  "tags": [
+    { "name": "comissoes", "createdAt": "2025-01-01T00:00:00.000Z" },
+    { "name": "recebimento", "createdAt": "2025-01-01T00:00:00.000Z" }
+  ]
+}

@@ -1,0 +1,356 @@
+ALERTAS DE COMISSÕES POR RECEBIMENTO — 10/2025
+============================================================
+
+1. CONFLITOS DE GL
+------------------------------------------------------------
+Total de processos em conflito: 0
+
+Nenhum conflito GL detectado.
+
+2. ALERTAS DE VENCIMENTO DE PARCELAS
+------------------------------------------------------------
+Total de parcelas em alerta: 340
+
+Parcelas vencidas (299):
+  [VENCIDA]   Doc 049909 — Vencimento: 17/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049900 — Vencimento: 16/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049895 — Vencimento: 26/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049892 — Vencimento: 31/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049885 — Vencimento: 22/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049882A — Vencimento: 22/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049881A — Vencimento: 22/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049879A — Vencimento: 22/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049878 — Vencimento: 15/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049876 — Vencimento: 13/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049875 — Vencimento: 22/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049872 — Vencimento: 20/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049868 — Vencimento: 10/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049867 — Vencimento: 22/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049864 — Vencimento: 20/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049857 — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049854 — Vencimento: 15/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049852 — Vencimento: 20/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049847 — Vencimento: 08/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049842 — Vencimento: 08/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049837 — Vencimento: 20/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049833 — Vencimento: 07/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049824 — Vencimento: 15/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049823 — Vencimento: 15/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049822 — Vencimento: 15/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049820 — Vencimento: 09/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049819 — Vencimento: 15/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049812 — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049809A — Vencimento: 10/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049808A — Vencimento: 13/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049806 — Vencimento: 27/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049803 — Vencimento: 22/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049797 — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049791 — Vencimento: 13/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049790 — Vencimento: 02/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049786 — Vencimento: 13/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049781 — Vencimento: 10/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049779A — Vencimento: 10/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049775 — Vencimento: 10/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049766 — Vencimento: 20/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049765 — Vencimento: 09/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049763 — Vencimento: 07/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049761 — Vencimento: 22/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049759 — Vencimento: 31/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049755 — Vencimento: 31/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049754 — Vencimento: 31/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049748A — Vencimento: 10/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049744A — Vencimento: 08/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049743A — Vencimento: 09/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049740A — Vencimento: 08/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049733 — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049725 — Vencimento: 20/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049724 — Vencimento: 02/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049723 — Vencimento: 02/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049716 — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049715 — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049714 — Vencimento: 20/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049713A — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049712A — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049702 — Vencimento: 02/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049700 — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049697 — Vencimento: 01/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049696 — Vencimento: 02/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049693B — Vencimento: 16/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049693A — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049689 — Vencimento: 16/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049687 — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049685 — Vencimento: 27/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049684 — Vencimento: 17/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049675 — Vencimento: 01/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049674A — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049668 — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049660 — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049653 — Vencimento: 08/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049641A — Vencimento: 27/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049640 — Vencimento: 27/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049639B — Vencimento: 02/04/2026 — Em Aberto
+  [VENCIDA]   Doc 0496361 — Vencimento: 26/03/2026 — Parcial
+  [VENCIDA]   Doc 049634 — Vencimento: 23/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049631A — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049625 — Vencimento: 23/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049618B — Vencimento: 22/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049614B — Vencimento: 16/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049610 — Vencimento: 20/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049608 — Vencimento: 20/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049601 — Vencimento: 20/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049600 — Vencimento: 20/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049599 — Vencimento: 20/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049593B — Vencimento: 20/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049591 — Vencimento: 20/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049576 — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049566 — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049560 — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049559 — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049558 — Vencimento: 13/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049552B — Vencimento: 27/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049547 — Vencimento: 22/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049544B — Vencimento: 10/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049543 — Vencimento: 10/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049540 — Vencimento: 02/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049518B — Vencimento: 09/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049486 — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049483 — Vencimento: 10/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049482 — Vencimento: 10/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049480 — Vencimento: 31/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049478D — Vencimento: 27/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049475 — Vencimento: 31/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049463B — Vencimento: 01/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049449 — Vencimento: 10/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049441 — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049440 — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049439 — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049429 — Vencimento: 10/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049426 — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049397C — Vencimento: 22/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049395B — Vencimento: 23/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049386C — Vencimento: 22/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049381C — Vencimento: 22/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049379C — Vencimento: 22/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049361C — Vencimento: 20/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049324B — Vencimento: 16/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049317B — Vencimento: 10/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049223B — Vencimento: 01/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049185D — Vencimento: 20/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049036 — Vencimento: 08/04/2026 — Em Aberto
+  [VENCIDA]   Doc 0490244 — Vencimento: 30/03/2026 — Parcial
+  [VENCIDA]   Doc 049022D — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049022C — Vencimento: 05/03/2026 — Parcial
+  [VENCIDA]   Doc 049022C — Vencimento: 05/03/2026 — Parcial
+  [VENCIDA]   Doc 049012D — Vencimento: 10/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049011D — Vencimento: 10/04/2026 — Em Aberto
+  [VENCIDA]   Doc 0490104 — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 048992D — Vencimento: 27/03/2026 — Em Aberto
+  [VENCIDA]   Doc 048817 — Vencimento: 13/03/2026 — Em Aberto
+  [VENCIDA]   Doc 048753C — Vencimento: 29/01/2026 — Em Aberto
+  [VENCIDA]   Doc 048722A — Vencimento: 10/04/2026 — Em Aberto
+  [VENCIDA]   Doc 048669E — Vencimento: 23/03/2026 — Parcial
+  [VENCIDA]   Doc 0485766 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 048482G — Vencimento: 10/04/2026 — Em Aberto
+  [VENCIDA]   Doc 048273 — Vencimento: 17/10/2025 — Em Aberto
+  [VENCIDA]   Doc 048259 — Vencimento: 19/11/2025 — Parcial
+  [VENCIDA]   Doc 0480744 — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 0477359 — Vencimento: 20/04/2026 — Em Aberto
+  [VENCIDA]   Doc 046151 — Vencimento: 15/08/2025 — Em Aberto
+  [VENCIDA]   Doc 043792 — Vencimento: 25/04/2024 — Em Aberto
+  [VENCIDA]   Doc 043676B — Vencimento: 10/04/2024 — Parcial
+  [VENCIDA]   Doc 035203B — Vencimento: 06/08/2021 — Em Aberto
+  [VENCIDA]   Doc 035167 — Vencimento: 04/06/2021 — Em Aberto
+  [VENCIDA]   Doc 034474B — Vencimento: 24/04/2021 — Em Aberto
+  [VENCIDA]   Doc 034474A — Vencimento: 24/03/2021 — Em Aberto
+  [VENCIDA]   Doc 032814C — Vencimento: 29/09/2020 — Em Aberto
+  [VENCIDA]   Doc 002513 — Vencimento: 14/04/2026 — Em Aberto
+  [VENCIDA]   Doc 002512 — Vencimento: 13/04/2026 — Em Aberto
+  [VENCIDA]   Doc 002511 — Vencimento: 09/04/2026 — Em Aberto
+  [VENCIDA]   Doc 002510 — Vencimento: 09/04/2026 — Em Aberto
+  [VENCIDA]   Doc 002509 — Vencimento: 14/04/2026 — Em Aberto
+  [VENCIDA]   Doc 002507 — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 002506 — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 002505 — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 002504 — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 002503 — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 002502 — Vencimento: 22/04/2026 — Em Aberto
+  [VENCIDA]   Doc 002501 — Vencimento: 10/04/2026 — Em Aberto
+  [VENCIDA]   Doc 002496A — Vencimento: 01/04/2026 — Em Aberto
+  [VENCIDA]   Doc 002492 — Vencimento: 12/03/2026 — Em Aberto
+  [VENCIDA]   Doc 002490 — Vencimento: 13/03/2026 — Em Aberto
+  [VENCIDA]   Doc 002486 — Vencimento: 13/04/2026 — Em Aberto
+  [VENCIDA]   Doc 002484 — Vencimento: 03/03/2026 — Em Aberto
+  [VENCIDA]   Doc 002481 — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 002479 — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 002471 — Vencimento: 12/02/2026 — Em Aberto
+  [VENCIDA]   Doc 002470 — Vencimento: 16/02/2026 — Em Aberto
+  [VENCIDA]   Doc 002465 — Vencimento: 11/02/2026 — Em Aberto
+  [VENCIDA]   Doc 049888 — Vencimento: 22/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049885 — Vencimento: 22/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049797 — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049762A — Vencimento: 09/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049747A — Vencimento: 10/04/2026 — Parcial
+  [VENCIDA]   Doc 049689 — Vencimento: 16/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049685 — Vencimento: 27/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049677 — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049676 — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049654A — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049625 — Vencimento: 23/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049622 — Vencimento: 23/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049611 — Vencimento: 15/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049601 — Vencimento: 20/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049579B — Vencimento: 15/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049566 — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049548 — Vencimento: 09/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049529 — Vencimento: 08/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049486 — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049469B — Vencimento: 31/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049460 — Vencimento: 16/03/2026 — Em Aberto
+  [VENCIDA]   Doc 049309 — Vencimento: 15/04/2026 — Em Aberto
+  [VENCIDA]   Doc 049263 — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 0487485 — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 048575B — Vencimento: 13/11/2025 — Em Aberto
+  [VENCIDA]   Doc 0480726 — Vencimento: 26/03/2026 — Parcial
+  [VENCIDA]   Doc 007861 — Vencimento: 26/03/2026 — Em Aberto
+  [VENCIDA]   Doc 007857A — Vencimento: 20/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007855 — Vencimento: 13/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007853 — Vencimento: 20/03/2026 — Em Aberto
+  [VENCIDA]   Doc 007852A — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007845 — Vencimento: 15/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007840A — Vencimento: 07/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007839 — Vencimento: 07/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007838 — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007836C — Vencimento: 09/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007833A — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007832A — Vencimento: 10/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007831A — Vencimento: 13/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007830A — Vencimento: 13/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007827A — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007824A — Vencimento: 13/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007823 — Vencimento: 13/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007819A — Vencimento: 10/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007818C — Vencimento: 13/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007817A — Vencimento: 01/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007816A — Vencimento: 09/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007815 — Vencimento: 20/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007814 — Vencimento: 09/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007813 — Vencimento: 31/03/2026 — Em Aberto
+  [VENCIDA]   Doc 007812C — Vencimento: 07/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007811 — Vencimento: 31/03/2026 — Em Aberto
+  [VENCIDA]   Doc 007805 — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007800A — Vencimento: 01/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007791A — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 007790B — Vencimento: 16/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007790A — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 007788A — Vencimento: 02/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007787A — Vencimento: 02/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007786A — Vencimento: 02/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007785A — Vencimento: 02/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007780A — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 007779A — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 007778 — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 007775 — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 007772A — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 007763A — Vencimento: 22/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007761A — Vencimento: 30/03/2026 — Em Aberto
+  [VENCIDA]   Doc 007759B — Vencimento: 16/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007756B — Vencimento: 20/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007747C — Vencimento: 16/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007746C — Vencimento: 16/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007741A — Vencimento: 04/03/2026 — Em Aberto
+  [VENCIDA]   Doc 007739 — Vencimento: 22/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007726A — Vencimento: 04/03/2026 — Em Aberto
+  [VENCIDA]   Doc 007724 — Vencimento: 06/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007713C — Vencimento: 22/04/2026 — Em Aberto
+  [VENCIDA]   Doc 007634C — Vencimento: 02/03/2026 — Em Aberto
+  [VENCIDA]   Doc 007609D — Vencimento: 27/03/2026 — Em Aberto
+  [VENCIDA]   Doc 007515A — Vencimento: 01/12/2025 — Em Aberto
+  [VENCIDA]   Doc 003340 — Vencimento: 04/06/2021 — Em Aberto
+  [VENCIDA]   Doc 0496361 — Vencimento: 26/03/2026 — Parcial
+  [VENCIDA]   Doc 0490244 — Vencimento: 30/03/2026 — Parcial
+  [VENCIDA]   Doc 049022C — Vencimento: 05/03/2026 — Parcial
+  [VENCIDA]   Doc 048669E — Vencimento: 23/03/2026 — Parcial
+  [VENCIDA]   Doc 0485766 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 048259 — Vencimento: 19/11/2025 — Parcial
+  [VENCIDA]   Doc 043676B — Vencimento: 10/04/2024 — Parcial
+  [VENCIDA]   Doc 049747A — Vencimento: 10/04/2026 — Parcial
+  [VENCIDA]   Doc 0480726 — Vencimento: 26/03/2026 — Parcial
+  [VENCIDA]   Doc 042064 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 042064 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 042064 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 042064 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 042064 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 042064 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 042064 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 042064 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 042064 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 042064 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 042064 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 042064 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 042064 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 042064 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 042064 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 042064 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 042064 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 042064 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 042064 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 042064 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 042064 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 042064 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 040872 — Vencimento: 23/04/2023 — Parcial
+  [VENCIDA]   Doc 040872 — Vencimento: 23/04/2023 — Parcial
+  [VENCIDA]   Doc 040872 — Vencimento: 23/04/2023 — Parcial
+  [VENCIDA]   Doc 049845A — Vencimento: 20/04/2026 — Em Aberto
+  [VENCIDA]   Doc 0493703 — Vencimento: 20/04/2026 — Em Aberto
+  [VENCIDA]   Doc 0481208 — Vencimento: 13/04/2026 — Parcial
+  [VENCIDA]   Doc 040872 — Vencimento: 23/04/2023 — Parcial
+  [VENCIDA]   Doc 040872 — Vencimento: 23/04/2023 — Parcial
+  [VENCIDA]   Doc 040872 — Vencimento: 23/04/2023 — Parcial
+  [VENCIDA]   Doc 900000 — Vencimento: 15/04/2026 — Em Aberto
+  [VENCIDA]   Doc 042064 — Vencimento: 01/04/2026 — Parcial
+  [VENCIDA]   Doc 0481208 — Vencimento: 13/04/2026 — Parcial
+  [VENCIDA]   Doc 040872 — Vencimento: 23/04/2023 — Parcial
+  [VENCIDA]   Doc 040872 — Vencimento: 23/04/2023 — Parcial
+
+Parcelas a vencer nos próximos 7 dias (41):
+  [A VENCER]  Doc 049906 — Vencimento: 27/04/2026 (em 4d) — Em Aberto
+  [A VENCER]  Doc 049904 — Vencimento: 27/04/2026 (em 4d) — Em Aberto
+  [A VENCER]  Doc 049899 — Vencimento: 27/04/2026 (em 4d) — Em Aberto
+  [A VENCER]  Doc 049898 — Vencimento: 30/04/2026 (em 7d) — Em Aberto
+  [A VENCER]  Doc 049893 — Vencimento: 27/04/2026 (em 4d) — Em Aberto
+  [A VENCER]  Doc 049891 — Vencimento: 27/04/2026 (em 4d) — Em Aberto
+  [A VENCER]  Doc 049887A — Vencimento: 24/04/2026 (em 1d) — Em Aberto
+  [A VENCER]  Doc 049886 — Vencimento: 23/04/2026 (em 0d) — Em Aberto
+  [A VENCER]  Doc 049877 — Vencimento: 29/04/2026 (em 6d) — Em Aberto
+  [A VENCER]  Doc 049841 — Vencimento: 29/04/2026 (em 6d) — Em Aberto
+  [A VENCER]  Doc 049801 — Vencimento: 27/04/2026 (em 4d) — Em Aberto
+  [A VENCER]  Doc 049800 — Vencimento: 27/04/2026 (em 4d) — Em Aberto
+  [A VENCER]  Doc 049742 — Vencimento: 28/04/2026 (em 5d) — Em Aberto
+  [A VENCER]  Doc 049674B — Vencimento: 28/04/2026 (em 5d) — Em Aberto
+  [A VENCER]  Doc 049665B — Vencimento: 23/04/2026 (em 0d) — Em Aberto
+  [A VENCER]  Doc 049656 — Vencimento: 27/04/2026 (em 4d) — Em Aberto
+  [A VENCER]  Doc 049648 — Vencimento: 27/04/2026 (em 4d) — Em Aberto
+  [A VENCER]  Doc 049647 — Vencimento: 27/04/2026 (em 4d) — Em Aberto
+  [A VENCER]  Doc 049643B — Vencimento: 27/04/2026 (em 4d) — Em Aberto
+  [A VENCER]  Doc 049641B — Vencimento: 27/04/2026 (em 4d) — Em Aberto
+  [A VENCER]  Doc 0496362 — Vencimento: 27/04/2026 (em 4d) — Parcial
+  [A VENCER]  Doc 049631B — Vencimento: 27/04/2026 (em 4d) — Em Aberto
+  [A VENCER]  Doc 049503 — Vencimento: 23/04/2026 (em 0d) — Em Aberto
+  [A VENCER]  Doc 049273C — Vencimento: 27/04/2026 (em 4d) — Em Aberto
+  [A VENCER]  Doc 049223C — Vencimento: 30/04/2026 (em 7d) — Em Aberto
+  [A VENCER]  Doc 049022K — Vencimento: 28/04/2026 (em 5d) — Em Aberto
+  [A VENCER]  Doc 048669F — Vencimento: 23/04/2026 (em 0d) — Parcial
+  [A VENCER]  Doc 002494 — Vencimento: 27/04/2026 (em 4d) — Em Aberto
+  [A VENCER]  Doc 049897 — Vencimento: 23/04/2026 (em 0d) — Em Aberto
+  [A VENCER]  Doc 049654B — Vencimento: 27/04/2026 (em 4d) — Em Aberto
+  [A VENCER]  Doc 007864 — Vencimento: 27/04/2026 (em 4d) — Em Aberto
+  [A VENCER]  Doc 007862A — Vencimento: 30/04/2026 (em 7d) — Em Aberto
+  [A VENCER]  Doc 007860A — Vencimento: 24/04/2026 (em 1d) — Em Aberto
+  [A VENCER]  Doc 007856 — Vencimento: 29/04/2026 (em 6d) — Em Aberto
+  [A VENCER]  Doc 007821C — Vencimento: 30/04/2026 (em 7d) — Em Aberto
+  [A VENCER]  Doc 007773 — Vencimento: 27/04/2026 (em 4d) — Em Aberto
+  [A VENCER]  Doc 007772B — Vencimento: 27/04/2026 (em 4d) — Em Aberto
+  [A VENCER]  Doc 007770 — Vencimento: 27/04/2026 (em 4d) — Em Aberto
+  [A VENCER]  Doc 007768B — Vencimento: 27/04/2026 (em 4d) — Em Aberto
+  [A VENCER]  Doc 0496362 — Vencimento: 27/04/2026 (em 4d) — Parcial
+  [A VENCER]  Doc 048669F — Vencimento: 23/04/2026 (em 0d) — Parcial

@@ -1,0 +1,18 @@
+ALERTAS DE COMISSÕES POR RECEBIMENTO — 11/2025
+============================================================
+
+1. CONFLITOS DE GL
+------------------------------------------------------------
+Total de processos em conflito: 1
+
+Processos bloqueados (requerem revisão manual):
+  1. validar_conflito_gl: colunas 'Processo' e/ou 'Linha' ausentes no df_ac.
+
+AÇÃO NECESSÁRIA: Revisar os processos acima no sistema.
+Processos com conflito GL não geram comissão automaticamente.
+
+2. ALERTAS DE VENCIMENTO DE PARCELAS
+------------------------------------------------------------
+Total de parcelas em alerta: 0
+
+Nenhum alerta de vencimento.
